@@ -27,7 +27,7 @@ public:
     friend std::istream &operator>>(std::istream &is, Polinom &obj);
 
     void setDegree(int degree_);
-    void setCoefficients(int coefficients_[]);
+    void setCoefficients(int const coefficients_[]);
     int getDegree();
     const int *getCoefficients() const;
     // void setCoefficients(int fake_degree, ...);  Vezi linia ...
@@ -318,6 +318,7 @@ Polinom::Polinom(int degree_, ...)
     va_start(valist, degree_);
     for (int i = 0; i <= degree; i++)
         coefficients[i] = va_arg(valist, int);
+    va_end(valist);
 }
 
 Polinom::Polinom(Polinom const &rhs)
@@ -351,7 +352,7 @@ void Polinom::setDegree(int degree_)
     coefficients = new int[degree + 1]();
 }
 
-void Polinom::setCoefficients(int coefficients_[])
+void Polinom::setCoefficients(int const coefficients_[])
 {
     for (int i = 0; i <= degree; i++)
         coefficients[i] = coefficients_[i];
